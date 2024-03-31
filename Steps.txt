@@ -1,0 +1,95 @@
+						DSA Project FileZipper
+
+1. Read the file
+
+
+2. We created a struct :
+
+	this struct generally stores a node which comprises of
+	data , frequency, left, right ptrs.
+
+3.Implement huffmann algo:
+	
+	i) Create a map of frequencies of characters.
+	ii)use priority_queue to create a minheap tree.
+	iii)Assign value for each node.
+	iv)Generate Codes.
+
+
+
+	/*struct Node
+{
+    char data;
+    int frequency;
+    Node *left, *right;
+
+    Node(char val, int freq)
+    {
+        data = val;
+        frequency = freq;
+        left = right = nullptr;
+    }
+};
+
+struct compare{
+    bool operator()(Node* a, Node* b) {
+        return a->frequency < b->frequency;
+    }
+};
+
+Node* buildHuffmanTree(ifstream &file)
+{
+    unordered_map<char,int> frequencies;
+
+    char ch;
+    while(file.get(ch))
+        frequencies[ch] ++;
+
+    priority_queue<Node*,vector<Node*>,compare> pq;
+
+    for(auto i:frequencies)
+    {
+        Node *node = new Node(i.first, i.second);
+        pq.push(node);
+    }
+
+    while(pq.size() > 1)
+    {
+        Node *temp_1 = pq.top();
+        pq.pop();
+        Node *temp_2 = pq.top();
+        pq.pop();
+
+        Node *newNode = new Node('#',temp_1->frequency + temp_2->frequency);
+        newNode->left = temp_1;
+        newNode->right = temp_2;
+        pq.push(newNode);
+    }
+
+    return pq.top();
+
+}
+
+void generateCodes(Node *root,string str,unordered_map<char,string>&codes)
+{
+    if(root == nullptr) 
+        return ;
+
+    if(root->data != '#')
+        codes[root->data] = str;
+
+    generateCodes(root->left,str + "0",codes);
+    generateCodes(root->right,str + "1",codes);
+}
+
+string encodeFile(ifstream &file1, unordered_map<char,string>codes)
+{
+    char ch;
+    string newText = "";
+    while(file1.get(ch))
+    {
+        newText += codes[ch];
+    }
+    return newText;
+}
+*/
